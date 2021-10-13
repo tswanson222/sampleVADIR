@@ -25,10 +25,3 @@ Imported datafile
 Allows for easy data importation. Automatically detects filetype and applies
 appropriate function for importing.
 }
-\examples{
-\dontrun{
-rankDat <- getData('rankDat.RDS')
-
-data <- getData('VADIR_fake.csv', header = TRUE, stringsAsFactors = FALSE)
-}
-}

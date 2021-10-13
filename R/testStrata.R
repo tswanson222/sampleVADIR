@@ -12,11 +12,6 @@
 #' @export
 #'
 #' @importFrom stats cor
-#'
-#' @examples
-#' \dontrun{
-#' testStrata(out, data)
-#' }
 testStrata <- function(out, data = NULL, metric = cor, zeros = FALSE){
   x <- switch(2 - is.null(data), out$data, data)
   if(dim(table(x$RANK_CD)) > 7){x <- convertRank(x)}

@@ -13,9 +13,8 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' data <- fixTypos(data, old = c('dum', 'stpid'), new = c('dumb', 'stupid'))
-#' }
+#' data <- fixTypos(data = VADIR_fake, old = c('CW02', 'CW0-2', 'PV1'),
+#'                  new = c('CWO2', 'CWO2', 'PVT'), var = 'RANK_CD')
 fixTypos <- function(data, old, new = NULL, var = 'RANK_CD'){
   if(is.null(new) & is(old, 'list') & length(old) == 2){
     if(all(tolower(names(old)) %in% c('old', 'new'))){

@@ -24,7 +24,6 @@ If there are known typos, the correct values of those incorrect responses can
 be provided and fixed across the dataset.
 }
 \examples{
-\dontrun{
-data <- fixTypos(data, old = c('dum', 'stpid'), new = c('dumb', 'stupid'))
-}
+data <- fixTypos(data = VADIR_fake, old = c('CW02', 'CW0-2', 'PV1'),
+                 new = c('CWO2', 'CWO2', 'PVT'), var = 'RANK_CD')
 }

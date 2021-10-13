@@ -22,8 +22,3 @@ Similarity values for males and females
 Used to evaluate the representativeness of the sample with regard to the
 population. Males and females evaluated separately.
 }
-\examples{
-\dontrun{
-testStrata(out, data)
-}
-}

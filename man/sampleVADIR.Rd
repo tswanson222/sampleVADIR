@@ -2,7 +2,7 @@
 % Please edit documentation in R/sampleVADIR.R
 \name{sampleVADIR}
 \alias{sampleVADIR}
-\title{Draw stratified sample from VADIR database}
+\title{Draw stratified samples from VADIR database}
 \usage{
 sampleVADIR(
   data,
@@ -26,7 +26,7 @@ sampleVADIR(
   saveData = TRUE,
   onlyIDs = FALSE,
   oversample = FALSE,
-  exclude = NULL,
+  exclude = FALSE,
   seed = NULL
 )
 }
@@ -42,7 +42,8 @@ stratification}
 indicating where to pull that dataset from. Recommended to leave as
 \code{"rankDat"} in order to use package-supplied dataset.}
 
-\item{payRanks}{Number of pay grades to use when converting rank variable}
+\item{payRanks}{Number of pay grades to use when converting rank variable.
+Only options are either 4 or 7.}
 
 \item{post911}{Logical. Determines whether to only consider individuals
 deployed after 9/11/2001}
@@ -119,30 +120,30 @@ females are sampled at a 1:1 ratio, regardless of population ratio.
 \examples{
 \dontrun{
 params <- list(
-n = 6000,
-vars = c('PN_Sex_CD', 'PN_BRTH_DT', 'SVC_CD', 'PNL_CAT_CD', 'RANK_CD',
-'PNL_TERM_DT', 'PNL_BGN_DT', 'OMB_RACE_CD',
-'OMB_ETHNC_NAT_ORIG_CD', 'POST_911_DPLY_IND_CD'),
-rankDat = 'rankDat',
-payRanks = 4,
-post911 = TRUE,
-until = NULL,
-dischargedAfter = FALSE,
-ageDischarge = TRUE,
-ageEnlist = FALSE,
-ageNow = FALSE,
-yearsServed = FALSE,
-dateformat = '\%m/\%d/\%Y',
-formats = 'default',
-rmDeviates = FALSE,
-timeCats = TRUE,
-saveData = TRUE,
-onlyIDs = FALSE,
-oversample = TRUE,
-exclude = TRUE,
-typos = list()
+  n = 6000,
+  vars = c('PN_Sex_CD', 'PN_BRTH_DT', 'SVC_CD', 'PNL_CAT_CD', 'RANK_CD',
+           'PNL_TERM_DT', 'PNL_BGN_DT', 'OMB_RACE_CD',
+           'OMB_ETHNC_NAT_ORIG_CD', 'POST_911_DPLY_IND_CD'),
+  rankDat = 'rankDat',
+  payRanks = 4,
+  post911 = FALSE,
+  until = NULL,
+  dischargedAfter = FALSE,
+  ageDischarge = TRUE,
+  ageEnlist = FALSE,
+  ageNow = FALSE,
+  yearsServed = FALSE,
+  dateformat = '\%m/\%d/\%Y',
+  formats = 'default',
+  rmDeviates = FALSE,
+  timeCats = TRUE,
+  saveData = TRUE,
+  onlyIDs = FALSE,
+  oversample = TRUE,
+  exclude = FALSE,
+  typos = list()
 )
 
-out <- sampleVADIR(VADIR, n = 4500, params = params, seed = 19)
+out <- sampleVADIR(VADIR_fake, params = params, seed = 19)
 }
 }

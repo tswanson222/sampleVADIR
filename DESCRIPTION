@@ -1,11 +1,14 @@
 Package: sampleVADIR
-Title: Draw stratified samples from the VADIR database
+Title: Draw Stratified Samples from the VADIR Database
 Version: 1.0.0
 Authors@R: 
-    person(given = "Trevor",
+  c(person(given = "Trevor",
            family = "Swanson",
            role = c("aut", "cre"),
-           email = "trevorswanson222@gmail.com")
+           email = "trevorswanson222@gmail.com"),
+    person(given = "Kelsie",
+           family = "Forbush",
+           role = "aut"))
 Maintainer: Trevor Swanson <trevorswanson222@gmail.com>
 Description: Affords researchers the ability to draw stratified samples from the VADIR database according to a variety of population characteristics. 
 License: GPL (>= 3)

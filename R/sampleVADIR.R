@@ -1,4 +1,4 @@
-#' Draw stratified sample from VADIR database
+#' Draw stratified samples from VADIR database
 #'
 #' Core function used to pull a stratified sample from VADIR based on a variety
 #' of parameters.
@@ -13,7 +13,8 @@
 #' @param rankDat Dataset linking ranks to pay grade, or character string
 #'   indicating where to pull that dataset from. Recommended to leave as
 #'   \code{"rankDat"} in order to use package-supplied dataset.
-#' @param payRanks Number of pay grades to use when converting rank variable
+#' @param payRanks Number of pay grades to use when converting rank variable.
+#'   Only options are either 4 or 7.
 #' @param post911 Logical. Determines whether to only consider individuals
 #'   deployed after 9/11/2001
 #' @param dischargedAfter Character string indicating what date to restrict
@@ -67,31 +68,31 @@
 #' @examples
 #' \dontrun{
 #' params <- list(
-#' n = 6000,
-#' vars = c('PN_Sex_CD', 'PN_BRTH_DT', 'SVC_CD', 'PNL_CAT_CD', 'RANK_CD',
-#' 'PNL_TERM_DT', 'PNL_BGN_DT', 'OMB_RACE_CD',
-#' 'OMB_ETHNC_NAT_ORIG_CD', 'POST_911_DPLY_IND_CD'),
-#' rankDat = 'rankDat',
-#' payRanks = 4,
-#' post911 = TRUE,
-#' until = NULL,
-#' dischargedAfter = FALSE,
-#' ageDischarge = TRUE,
-#' ageEnlist = FALSE,
-#' ageNow = FALSE,
-#' yearsServed = FALSE,
-#' dateformat = '%m/%d/%Y',
-#' formats = 'default',
-#' rmDeviates = FALSE,
-#' timeCats = TRUE,
-#' saveData = TRUE,
-#' onlyIDs = FALSE,
-#' oversample = TRUE,
-#' exclude = TRUE,
-#' typos = list()
+#'   n = 6000,
+#'   vars = c('PN_Sex_CD', 'PN_BRTH_DT', 'SVC_CD', 'PNL_CAT_CD', 'RANK_CD',
+#'            'PNL_TERM_DT', 'PNL_BGN_DT', 'OMB_RACE_CD',
+#'            'OMB_ETHNC_NAT_ORIG_CD', 'POST_911_DPLY_IND_CD'),
+#'   rankDat = 'rankDat',
+#'   payRanks = 4,
+#'   post911 = FALSE,
+#'   until = NULL,
+#'   dischargedAfter = FALSE,
+#'   ageDischarge = TRUE,
+#'   ageEnlist = FALSE,
+#'   ageNow = FALSE,
+#'   yearsServed = FALSE,
+#'   dateformat = '%m/%d/%Y',
+#'   formats = 'default',
+#'   rmDeviates = FALSE,
+#'   timeCats = TRUE,
+#'   saveData = TRUE,
+#'   onlyIDs = FALSE,
+#'   oversample = TRUE,
+#'   exclude = FALSE,
+#'   typos = list()
 #' )
 #'
-#' out <- sampleVADIR(VADIR, n = 4500, params = params, seed = 19)
+#' out <- sampleVADIR(VADIR_fake, params = params, seed = 19)
 #' }
 sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat',
                         payRanks = 4, post911 = TRUE, dischargedAfter = FALSE,
@@ -100,7 +101,7 @@ sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat',
                         params = NULL, formats = 'default', typos = list(),
                         rmDeviates = FALSE, timeCats = FALSE, saveData = TRUE,
                         onlyIDs = FALSE, oversample = FALSE,
-                        exclude = NULL, seed = NULL){
+                        exclude = FALSE, seed = NULL){
 
   t1 <- Sys.time()
   if(!is.null(seed)){set.seed(seed)}
@@ -143,7 +144,7 @@ sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat',
     }
   } else stop('Variable names do not match with original input!')
 
-  if(!is.null(exclude)){
+  if(ifelse(!is.null(exclude), !identical(exclude, FALSE), FALSE)){
     zips0 <- otherinfo$ID[which(is.na(otherinfo$MA_PR_ZIP_CD))]
     zips0 <- union(zips0, otherinfo$ID[which(otherinfo$MA_PR_ZIP_CD == '')])
     ntc <- otherinfo$ID[which(startsWith(otherinfo$MA_LN1_TX, 'NTC'))]

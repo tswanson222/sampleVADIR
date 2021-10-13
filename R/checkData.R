@@ -15,11 +15,6 @@
 #'   returns the new VADIR dataset without repeated responses if \code{fix =
 #'   TRUE}.
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' checkData(old, new)
-#' }
 checkData <- function(old, new, fix = FALSE, dates = FALSE){
   vars <- intersect(colnames(old), colnames(new))
   if(!isTRUE(dates)){vars <- setdiff(vars, c('PN_BRTH_DT', 'PNL_TERM_DT', 'PNL_BGN_DT'))}

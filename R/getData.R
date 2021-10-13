@@ -15,13 +15,6 @@
 #' @export
 #'
 #' @importFrom utils read.csv read.table
-#'
-#' @examples
-#' \dontrun{
-#' rankDat <- getData('rankDat.RDS')
-#'
-#' data <- getData('VADIR_fake.csv', header = TRUE, stringsAsFactors = FALSE)
-#' }
 getData <- function(filename, filetype = 'csv', fixDates = FALSE, ...){
   files <- c('csv', 'rds', 'xlsx', 'rdata', 'sav', 'txt')
   if(any(endsWith(tolower(filename), files))){

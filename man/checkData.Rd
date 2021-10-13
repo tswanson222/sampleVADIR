@@ -27,8 +27,3 @@ returns the new VADIR dataset without repeated responses if \code{fix =
 Can be used to identify whether a new version of VADIR contains any old
 responses. Can also automatically remove repeated responses.
 }
-\examples{
-\dontrun{
-checkData(old, new)
-}
-}
