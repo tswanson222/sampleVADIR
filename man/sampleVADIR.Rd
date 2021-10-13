@@ -8,10 +8,10 @@ sampleVADIR(
   data,
   n = 4500,
   vars = "all",
-  rankDat = "rankDat.RDS",
+  rankDat = "rankDat",
   payRanks = 4,
   post911 = TRUE,
-  dischargedAfter = "pastyear",
+  dischargedAfter = FALSE,
   until = NULL,
   ageDischarge = TRUE,
   ageEnlist = FALSE,
@@ -27,7 +27,6 @@ sampleVADIR(
   onlyIDs = FALSE,
   oversample = FALSE,
   exclude = NULL,
-  backup = FALSE,
   seed = NULL
 )
 }
@@ -40,7 +39,8 @@ sampleVADIR(
 stratification}
 
 \item{rankDat}{Dataset linking ranks to pay grade, or character string
-indicating where to pull that dataset from.}
+indicating where to pull that dataset from. Recommended to leave as
+\code{"rankDat"} in order to use package-supplied dataset.}
 
 \item{payRanks}{Number of pay grades to use when converting rank variable}
 
@@ -49,7 +49,8 @@ deployed after 9/11/2001}
 
 \item{dischargedAfter}{Character string indicating what date to restrict
 sampling to based on discharge date. Can set to \code{FALSE} if this is to
-be ignored.}
+be ignored. Can also set to \code{'past-year'} in order to only sample
+people who were discharged within the past year (given the current date).}
 
 \item{until}{Upper limit to when service was started. \code{NULL} means there
 is no upper limit}
@@ -101,8 +102,6 @@ based on limitations due to available proportions of strata in subsample.}
 \item{exclude}{Logical. Determines whether to exclude people missing a zip
 code, as well as people with \code{"NTC"} as their zip code value.}
 
-\item{backup}{This argument will be removed.}
-
 \item{seed}{Numeric value indicating the seed to set for the stratification
 procedure. Allows for reproducible results.}
 }
@@ -124,7 +123,7 @@ n = 6000,
 vars = c('PN_Sex_CD', 'PN_BRTH_DT', 'SVC_CD', 'PNL_CAT_CD', 'RANK_CD',
 'PNL_TERM_DT', 'PNL_BGN_DT', 'OMB_RACE_CD',
 'OMB_ETHNC_NAT_ORIG_CD', 'POST_911_DPLY_IND_CD'),
-rankDat = 'rankdDat.RDS',
+rankDat = 'rankDat',
 payRanks = 4,
 post911 = TRUE,
 until = NULL,

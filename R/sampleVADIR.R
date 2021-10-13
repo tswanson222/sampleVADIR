@@ -11,13 +11,15 @@
 #' @param vars Character vector indicating which variables to use in
 #'   stratification
 #' @param rankDat Dataset linking ranks to pay grade, or character string
-#'   indicating where to pull that dataset from.
+#'   indicating where to pull that dataset from. Recommended to leave as
+#'   \code{"rankDat"} in order to use package-supplied dataset.
 #' @param payRanks Number of pay grades to use when converting rank variable
 #' @param post911 Logical. Determines whether to only consider individuals
 #'   deployed after 9/11/2001
 #' @param dischargedAfter Character string indicating what date to restrict
 #'   sampling to based on discharge date. Can set to \code{FALSE} if this is to
-#'   be ignored.
+#'   be ignored. Can also set to \code{'past-year'} in order to only sample
+#'   people who were discharged within the past year (given the current date).
 #' @param until Upper limit to when service was started. \code{NULL} means there
 #'   is no upper limit
 #' @param ageDischarge Logical. Determines whether to use age at discharge as a
@@ -53,7 +55,6 @@
 #'   based on limitations due to available proportions of strata in subsample.
 #' @param exclude Logical. Determines whether to exclude people missing a zip
 #'   code, as well as people with \code{"NTC"} as their zip code value.
-#' @param backup This argument will be removed.
 #' @param seed Numeric value indicating the seed to set for the stratification
 #'   procedure. Allows for reproducible results.
 #'
@@ -70,7 +71,7 @@
 #' vars = c('PN_Sex_CD', 'PN_BRTH_DT', 'SVC_CD', 'PNL_CAT_CD', 'RANK_CD',
 #' 'PNL_TERM_DT', 'PNL_BGN_DT', 'OMB_RACE_CD',
 #' 'OMB_ETHNC_NAT_ORIG_CD', 'POST_911_DPLY_IND_CD'),
-#' rankDat = 'rankdDat.RDS',
+#' rankDat = 'rankDat',
 #' payRanks = 4,
 #' post911 = TRUE,
 #' until = NULL,
@@ -92,33 +93,22 @@
 #'
 #' out <- sampleVADIR(VADIR, n = 4500, params = params, seed = 19)
 #' }
-sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat.RDS',
-                        payRanks = 4, post911 = TRUE, dischargedAfter = 'pastyear',
+sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat',
+                        payRanks = 4, post911 = TRUE, dischargedAfter = FALSE,
                         until = NULL, ageDischarge = TRUE, ageEnlist = FALSE,
                         ageNow = FALSE, yearsServed = FALSE, dateformat = '%m/%d/%Y',
                         params = NULL, formats = 'default', typos = list(),
                         rmDeviates = FALSE, timeCats = FALSE, saveData = TRUE,
-                        onlyIDs = FALSE, oversample = FALSE, exclude = NULL,
-                        backup = FALSE, seed = NULL){
+                        onlyIDs = FALSE, oversample = FALSE,
+                        exclude = NULL, seed = NULL){
 
   t1 <- Sys.time()
   if(!is.null(seed)){set.seed(seed)}
-  if(!identical(backup, FALSE)){
-    data <- readRDS(ifelse(isTRUE(backup), 'aged3.RDS', backup))
-    for(i in 1:4){colnames(data[[i]])[10] <- 'PN_1ST_NM'}
-    data <- data.frame(rbind(data[[1]], data[[3]]))
-    data <- structure(data[order(data$ID), ], row.names = 1:nrow(data))
-    data$ID <- NULL
-    #data$ageDischarge <- NULL
-    data$RANK_CD <- factor(data$RANK_CD)
-    levels(data$RANK_CD) <- c('AB', 'SSGT', 'CAPT', 'CW2')
-    data$RANK_CD <- as.character(data$RANK_CD)
-  }
-  ##################################################
+
   ### STEP 1) *Optional* loading of parameter list
   if(!is.null(params)){if(is(params, 'list') & !is.null(names(params))){
     list2env(params, envir = as.environment(-1))
-    if(is.null(rankDat)){rankDat <- 'rankDat.RDS'}
+    if(is.null(rankDat)){rankDat <- 'rankDat'}
   }}
   ### Creating a record of the arguments called with the function
   call <- list(n = n, vars = vars, payRanks = payRanks, post911 = post911,
@@ -129,7 +119,6 @@ sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat.RDS',
                exclude = exclude, seed = seed)
 
 
-  ##################################################
   ### STEP 2) Variable names and adding 'ID' to data
   N <- nrow(data)
   if(identical(tolower(vars), 'all')){
@@ -165,7 +154,7 @@ sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat.RDS',
     }
   }
 
-  ##################################################
+
   ### STEP 3) Response formats
   if(length(formats) < length(vars)){
     if(!identical(tolower(formats), 'default')){
@@ -227,10 +216,13 @@ sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat.RDS',
   }
 
 
-  ##################################################
   ### STEP 4) Check (or import) 'rankDat.RDS' and recode 'RANK_CD'
   if(is.character(rankDat)){
-    rankDat <- tryCatch({readRDS(rankDat)}, error = function(e){TRUE})
+    if(identical(rankDat, 'rankDat')){
+      rankDat <- sampleVADIR::rankDat
+    } else {
+      rankDat <- tryCatch({readRDS(rankDat)}, error = function(e){TRUE})
+    }
     if(isTRUE(rankDat)){stop('rankDat improperly specified. Must provide data.frame or filepath.')}
   } else if(any(sapply(c('data.frame', 'matrix'), function(i) is(rankDat, i)))){
     if(is.null(colnames(rankDat))){stop('Need named variables for rankDat')}
@@ -251,7 +243,6 @@ sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat.RDS',
   }
 
 
-  ##################################################
   ### STEP 5) Time/date variable cleaning
   stime <- function(x, asDate = TRUE, dateonly = NULL){
     if(is.null(dateonly)){dateonly <- !grepl(':', x)}
@@ -309,7 +300,6 @@ sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat.RDS',
   }
 
 
-  ##################################################
   ### STEP 6) Select sample based on start/end date of service
   # First checks "until" argument; i.e., last possible start-service date
   if(is.character(until) | lubridate::is.Date(until)){
@@ -370,7 +360,6 @@ sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat.RDS',
   }
 
 
-  ##################################################
   ### STEP 7) Split the dataset by gender and stratify each group separately
   #suppressMessages(require(splitstackshape))
   gendats <- split(data[, -grep('SEX', colnames(data))], data$PN_SEX_CD)
@@ -428,7 +417,6 @@ sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat.RDS',
   }
 
 
-  ##################################################
   ### ---------------- COMPLETE ---------------- ###
   if(onlyIDs){
     output <- list(call = call, Females = gensamps[['F']]$ID, Males = gensamps[['M']]$ID)
