@@ -78,7 +78,7 @@ arguments multiple times.}
 
 \item{typos}{List containing typos to be fixed, as well as what they should
 be changed to. Leave at \code{list()} to ignore. Typos can also be fixed
-prior to stratification by using the \code{fixTypos()} function.}
+prior to stratification by using the \code{\link{fixTypos}} function.}
 
 \item{rmDeviates}{Logical. Determines whether rows with unexpected response
 values are removed. If \code{FALSE}, and deviate response values are

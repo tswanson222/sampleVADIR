@@ -7,7 +7,7 @@
 testStrata(out, data = NULL, metric = cor, zeros = FALSE)
 }
 \arguments{
-\item{out}{Output of \code{sampleVADIR()}}
+\item{out}{Output of \code{\link{sampleVADIR}}}
 
 \item{data}{Original VADIR data}
 

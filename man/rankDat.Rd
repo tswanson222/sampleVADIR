@@ -28,16 +28,16 @@ rankDat
 }
 \description{
 Serves as a key for relating certain military rank designations with pay
-grades. Used in the \code{sampleVADIR()} function for stratifying based on pay
+grades. Used in the \code{\link{sampleVADIR}} function for stratifying based on pay
 grade rather than rank.
 }
 \details{
-The way these data are used in the \code{sampleVADIR()} function is by
+The way these data are used in the \code{\link{sampleVADIR}} function is by
 indexing the values of the \code{RANK_CD} variable of the VADIR dataset
 against the \code{Initials} variable in the present dataset, and then the
 \code{RANK_CD} value is replaced with the associated value in either the
 \code{PayCat4} or \code{PayCat7} variable depending on what is specified in
-the \code{sampleVADIR()} function. The purpose of this is to make the
+the \code{\link{sampleVADIR}} function. The purpose of this is to make the
 \code{RANK_CD} variable more amenable to stratification, given the difficultly
 of stratifying across values of a categorical variable with so many unique
 values.

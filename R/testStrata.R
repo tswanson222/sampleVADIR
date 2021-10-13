@@ -3,7 +3,7 @@
 #' Used to evaluate the representativeness of the sample with regard to the
 #' population. Males and females evaluated separately.
 #'
-#' @param out Output of \code{sampleVADIR()}
+#' @param out Output of \code{\link{sampleVADIR}}
 #' @param data Original VADIR data
 #' @param metric Function for measuring similarity between population and sample
 #' @param zeros Should empty strata be included?
