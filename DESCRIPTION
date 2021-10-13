@@ -1,14 +1,16 @@
 Package: sampleVADIR
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Draw stratified samples from the VADIR database
+Version: 1.0.0
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Trevor",
+           family = "Swanson",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "trevorswanson222@gmail.com")
+Maintainer: Trevor Swanson <trevorswanson222@gmail.com>
+Description: Affords researchers the ability to draw stratified samples from the VADIR database according to a variety of population characteristics. 
 License: GPL (>= 3)
+URL: https://github.com/tswanson222/sampleVADIR
+BugReports: https://github.com/tswanson222/sampleVADIR/issues
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -20,3 +22,5 @@ Imports:
 Suggests: 
     haven,
     rio
+Depends: 
+    R (>= 2.10)
