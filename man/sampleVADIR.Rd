@@ -116,6 +116,11 @@ of parameters.
 \details{
 Performs stratification separately for males and females, where males and
 females are sampled at a 1:1 ratio, regardless of population ratio.
+
+With a large dataset (which is typical for VADIR), setting any of the
+date-related variables to \code{TRUE} can drastically increase computation
+time. The relevant arguments include: \code{ageDischarge, ageEnlist, ageNow,
+yearsServed}.
 }
 \examples{
 \dontrun{

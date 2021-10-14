@@ -6,6 +6,11 @@
 #' Performs stratification separately for males and females, where males and
 #' females are sampled at a 1:1 ratio, regardless of population ratio.
 #'
+#' With a large dataset (which is typical for VADIR), setting any of the
+#' date-related variables to \code{TRUE} can drastically increase computation
+#' time. The relevant arguments include: \code{ageDischarge, ageEnlist, ageNow,
+#' yearsServed}.
+#'
 #' @param data VADIR dataset
 #' @param n Total desired sample size
 #' @param vars Character vector indicating which variables to use in
@@ -145,13 +150,15 @@ sampleVADIR <- function(data, n = 4500, vars = 'all', rankDat = 'rankDat',
   } else stop('Variable names do not match with original input!')
 
   if(ifelse(!is.null(exclude), !identical(exclude, FALSE), FALSE)){
-    zips0 <- otherinfo$ID[which(is.na(otherinfo$MA_PR_ZIP_CD))]
-    zips0 <- union(zips0, otherinfo$ID[which(otherinfo$MA_PR_ZIP_CD == '')])
-    ntc <- otherinfo$ID[which(startsWith(otherinfo$MA_LN1_TX, 'NTC'))]
-    if(is.numeric(exclude)){
-      exclude <- union(union(zips0, exclude), ntc)
-    } else if(isTRUE(exclude)){
-      exclude <- union(zips0, ntc)
+    if(all(c('MA_PR_ZIP_CD', 'MA_LN1_TX') %in% colnames(otherinfo))){
+      zips0 <- otherinfo$ID[which(is.na(otherinfo$MA_PR_ZIP_CD))]
+      zips0 <- union(zips0, otherinfo$ID[which(otherinfo$MA_PR_ZIP_CD == '')])
+      ntc <- otherinfo$ID[which(startsWith(otherinfo$MA_LN1_TX, 'NTC'))]
+      if(is.numeric(exclude)){
+        exclude <- union(union(zips0, exclude), ntc)
+      } else if(isTRUE(exclude)){
+        exclude <- union(zips0, ntc)
+      }
     }
   }
 

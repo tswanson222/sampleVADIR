@@ -37,9 +37,8 @@ testStrata <- function(out, data = NULL, metric = cor, zeros = FALSE){
     d1 <- d1[names(p1)]
     d2 <- d2[names(p2)]
   }
-  females <- metric(d1, p1)
-  males <- metric(d2, p2)
-  c(Females = females, Males = males)
+  out <- c(Females = metric(d1, p1), Males = metric(d2, p2))
+  return(out)
 }
 
 # convertRank: used in the testStrata function
