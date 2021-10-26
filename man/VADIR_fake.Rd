@@ -13,8 +13,11 @@ VADIR_fake
 }
 \description{
 Simulated VADIR data based solely on the variable names and appropriate
-response options for each. Does not represent population characteristics of
-VADIR, and is meant simply as a faux tool for testing functions in the
+response options for each. Values of variables were generated based on
+population proportions identified in a subsample of approximately 140,000
+veterans from a version of the VADIR database obtained in 2020. However, this
+simulated dataset does not fully represent population characteristics of
+VADIR, and is simply meant as a faux tool for testing functions in the
 \code{sampleVADIR} package.
 }
 \keyword{datasets}
