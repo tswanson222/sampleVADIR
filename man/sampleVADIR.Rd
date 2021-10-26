@@ -123,9 +123,9 @@ time. The relevant arguments include: \code{ageDischarge, ageEnlist, ageNow,
 yearsServed}.
 }
 \examples{
-\dontrun{
+\donttest{
 params <- list(
-  n = 6000,
+  n = 7000,
   vars = c('PN_Sex_CD', 'PN_BRTH_DT', 'SVC_CD', 'PNL_CAT_CD', 'RANK_CD',
            'PNL_TERM_DT', 'PNL_BGN_DT', 'OMB_RACE_CD',
            'OMB_ETHNC_NAT_ORIG_CD', 'POST_911_DPLY_IND_CD'),

@@ -8,7 +8,16 @@ Authors@R:
            email = "trevorswanson222@gmail.com"),
     person(given = "Kelsie",
            family = "Forbush",
-           role = "aut"))
+           role = "aut"),
+    person(given = "Joanna",
+           family = "Weise",
+           role = "ctb"),
+    person(given = "Melinda",
+           family = "Gaddy",
+           role = "ctb"),
+    person(given = "Mary",
+           family = "Olhert",
+           role = "ctb"))
 Maintainer: Trevor Swanson <trevorswanson222@gmail.com>
 Description: Affords researchers the ability to draw stratified samples from the VADIR database according to a variety of population characteristics. The central utility of the present package is to integrate data cleaning and formatting for the VADIR database with the stratification methods described by Mahto (2019) <https://CRAN.R-project.org/package=splitstackshape>.
 License: GPL (>= 3)

@@ -16,7 +16,7 @@ Actual VADIR data not supplied.
 
 <!-- You can install the released version of sampleVADIR from [CRAN](https://CRAN.R-project.org) with: -->
 
-You can install the development version of modnets from
+You can install the development version of sampleVADIR from
 [GitHub](https://github.com/tswanson222/sampleVADIR) with:
 
 ``` r
