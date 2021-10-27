@@ -14,8 +14,8 @@ were separated from the military after 1980. This package is intended to
 be used in conjunction with VADIR data in order to pull nationally
 representative samples of veterans for research purposes. Actual VADIR
 data not supplied with this package. More information about the VADIR
-database can be found at
-<https://www.federalregister.gov/documents/2009/07/27/E9-17776/privacy-act-systems-of-records>.
+database can be found
+[here](https://www.federalregister.gov/documents/2009/07/27/E9-17776/privacy-act-systems-of-records).
 
 ## Installation
 
