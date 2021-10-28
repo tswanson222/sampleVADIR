@@ -1,6 +1,6 @@
 Package: sampleVADIR
 Title: Draw Stratified Samples from the VADIR Database
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: 
   c(person(given = "Trevor",
            family = "Swanson",

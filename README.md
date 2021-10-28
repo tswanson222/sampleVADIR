@@ -21,11 +21,17 @@ database can be found
 
 <!-- You can install the released version of sampleVADIR from [CRAN](https://CRAN.R-project.org) with: -->
 
-You can install the development version of sampleVADIR from
+You can install the released version of the package from
+[CRAN](https://cran.r-project.org/web/packages/sampleVADIR/index.html),
+or the development version from
 [GitHub](https://github.com/tswanson222/sampleVADIR) with:
 
 ``` r
-#install.packages('devtools')
+# Install the package from CRAN
+install.packages('sampleVADIR')
+
+# Or install the development version from GitHub
+# install.packages('devtools')
 devtools::install_github('tswanson222/sampleVADIR')
 ```
 
